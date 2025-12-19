@@ -1,0 +1,4 @@
+Resource Group: rg-static-image-site
+Storage Account: stimagesite...
+Containers: images-original, images-thumbnails
+Function App: func-static-image-site
