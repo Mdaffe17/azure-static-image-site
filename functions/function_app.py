@@ -41,7 +41,7 @@ def upload_image(req: func.HttpRequest) -> func.HttpResponse:
         blob_client = container_client.get_blob_client(blob_name)
         blob_client.upload_blob(file.stream, overwrite=True)
 
-        # ✅ RETOUR EXPLICITE ET UNIQUE
+        # Retour unique 
         return func.HttpResponse(
             f"Image téléversée avec succès : {blob_name}",
             status_code=200
