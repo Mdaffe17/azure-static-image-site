@@ -70,3 +70,5 @@ az storage blob upload-batch   --account-name stimagesitemouctar   --destination
 
 - **Function App**
   https://func-static-image-site-hpd7a2drg4hkdgcr.canadaeast-01.azurewebsites.net
+
+> Note : les ressources Azure peuvent être supprimées après la remise du projet. Les URLs sont fournies à titre démonstratif.
