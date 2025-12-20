@@ -47,7 +47,11 @@ func azure functionapp publish func-static-image-site
 ### Frontend (Site statique)
 ```bash
 cd frontend
-az storage blob upload-batch   --account-name stimagesitemouctar   --destination '$web'   --source .   --overwrite
+az storage blob upload-batch   
+ --account-name stimagesitemouctar   
+ --destination '$web'   
+ --source .   
+ --overwrite
 ```
 
 ---
