@@ -9,8 +9,64 @@ qui interagit exclusivement avec des Azure Functions pour :
 - Afficher les miniatures via une interface web statique
 
 ## Architecture
-- Frontend statique (HTML / CSS / JavaScript)
-- Azure Functions (Python)
-- Azure Blob Storage
-- CI/CD via GitHub Actions
+### Frontend
+- HTML / CSS / JavaScript
+- Hébergé via **Azure Blob Storage – Static Website**
+- Aucune logique serveur côté client
 
+### Backend (Azure Functions – Python)
+1. **upload_image**  
+   Fonction HTTP (POST)  
+   Téléverse une image dans le conteneur `images-original`
+
+2. **resize_image**  
+   Fonction Blob Trigger  
+   Redimensionne automatiquement l’image en 256×256 px à l’aide de la bibliothèque **Pillow (PIL)**  
+   Stocke la miniature dans `images-thumbnails`
+
+3. **list_images**  
+   Fonction HTTP (GET)  
+   Liste les miniatures disponibles et retourne leurs URLs publiques
+
+### Stockage
+- Azure Blob Storage
+  - `images-original` : images sources
+  - `images-thumbnails` : miniatures
+---
+
+---
+
+##  Déploiement sur Azure
+
+### Backend (Azure Functions)
+```bash
+cd functions
+func azure functionapp publish func-static-image-site
+```
+
+### Frontend (Site statique)
+```bash
+cd frontend
+az storage blob upload-batch   --account-name stimagesitemouctar   --destination '$web'   --source .   --overwrite
+```
+
+---
+ 
+## Technologies utilisées
+- Azure Blob Storage
+- Azure Functions (Python)
+- Azure CLI
+- Azure Functions Core Tools
+- Pillow (PIL)
+- HTML / CSS / JavaScript
+- GitHub
+
+---
+
+## URLs importantes
+
+- **Site statique**  
+  https://stimagesitemouctar.z27.web.core.windows.net
+
+- **Function App**
+  https://func-static-image-site-hpd7a2drg4hkdgcr.canadaeast-01.azurewebsites.net
