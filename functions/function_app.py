@@ -3,6 +3,7 @@ import azure.functions as func
 from azure.storage.blob import BlobServiceClient
 from PIL import Image
 import io
+import json
 import os
 import uuid
 
@@ -98,3 +99,37 @@ def resize_image(myblob: func.InputStream):
 #         f"Properties: {client.get_blob_properties()}\n"
 #         f"Blob content head: {client.download_blob().read(size=1)}"
 #     )
+
+
+@app.route(route="list_images", auth_level=func.AuthLevel.ANONYMOUS)
+def list_images(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info("Fonction list_images appelée")
+
+    try:
+        connection_string = os.getenv("AzureWebJobsStorage")
+        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+
+        container_name = "images-thumbnails"
+        container_client = blob_service_client.get_container_client(container_name)
+
+        images = []
+
+        for blob in container_client.list_blobs():
+            blob_url = (
+                f"https://{blob_service_client.account_name}.blob.core.windows.net/"
+                f"{container_name}/{blob.name}"
+            )
+            images.append(blob_url)
+
+        return func.HttpResponse(
+            body=json.dumps(images),
+            mimetype="application/json",
+            status_code=200
+        )
+
+    except Exception as e:
+        logging.error(str(e))
+        return func.HttpResponse(
+            "Erreur lors de la récupération des images",
+            status_code=500
+        )
