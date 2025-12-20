@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Azure Static Image Site</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Azure Static Image Site</h1>
+
+  <section>
+    <input type="file" id="fileInput" accept="image/*" />
+    <button onclick="uploadImage()">Téléverser</button>
+  </section>
+
+  <section>
+    <button onclick="loadImages()">Afficher les miniatures</button>
+  </section>
+
+  <section id="gallery"></section>
+
+  <script src="script.js"></script>
+</body>
+</html>
