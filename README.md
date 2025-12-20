@@ -55,6 +55,11 @@ az storage blob upload-batch
 ```
 
 ---
+
+> Note : Le workflow GitHub Actions fourni illustre un déploiement CI/CD vers Azure Functions.
+Les informations d’authentification Azure (Service Principal) ne sont pas incluses pour des raisons de sécurité.
+
+---
  
 ## Technologies utilisées
 - Azure Blob Storage
